@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-// Listas de alocação sequencial
+// Listas de alocaÃ§Ã£o sequencial
 
 typedef struct{
 	int *l;
@@ -52,7 +52,7 @@ void init(ListaSeq *lista, int tamanho){
 }
 
 /*
-	ao invés de realocar de tamanho + tamanho,
+	ao invÃ©s de realocar de tamanho + tamanho,
 	realoca o dobro do tamanho atual para
 	melhorar complexidade de P.A para P.G.	
 */
@@ -81,7 +81,7 @@ int busca(ListaSeq *lista, int valor){
 
 /*
 	Deleta e substitui no lugar do removido
-	o atual últino da lista p/ evitar mover
+	o atual Ãºltino da lista p/ evitar mover
 	todos os elementos da direita p/ direita.
 */
 bool deleta(ListaSeq *lista, int valor){
@@ -94,7 +94,7 @@ bool deleta(ListaSeq *lista, int valor){
 		}
 		++i;
 	}
-	return false; // não achou ou lista vazia.
+	return false; // nÃ£o achou ou lista vazia.
 }
 
 void limpar(ListaSeq *lista){
@@ -105,6 +105,7 @@ void destroi(ListaSeq *lista){
 	lista->nelem = 0;
 	lista->tam = 0;
 	free(lista->l);
+ lista->l = NULL;
 }
 
 void exibir(ListaSeq lista){
