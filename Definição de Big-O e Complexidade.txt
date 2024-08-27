@@ -1,0 +1,43 @@
+Definição da notação Big-O.
+
+Dadas funções f e g digo que:
+f = O(g) ou
+f é O(g) ou
+f é da ordem de g
+se existe c > 0 e n0 tal que
+f(n) é menor ou igual c*g(n)
+para todo n maior ou igual a n0.
+
+https://pt.wikipedia.org/wiki/Grande-O
+
+-------------------------------------------------
+
+Outra definição:
+
+f = Omega(g)
+se e somente se
+g = O(f)
+
+Outra definição:
+
+f = O(g)
+se e somente se
+f = O(g) e g = O(f)
+
+-------------------------------------------------
+
+Exemplo: 
+
+f                          g
+2n² - 3n + 5               5n²-5n-7
+
+
+-------------------------------------------------
+Algoritmo de ordenação por comparação.
+
+Qualquer algoritmo de ordenação por comparação requer
+n log n verificações.
+Demonstração por árvore de decisão..
+
+2^h >= n!
+h >= log2 n!
