@@ -49,7 +49,8 @@ int main(void){
 }
 
 void init(FilaSeq *fila, int tamanho){
-	if(fila->f != NULL) exit(1); // fila ja iniciada.
+	if(fila->f != NULL || tamanho <= 1) exit(1);
+	exit(1); // fila ja iniciada ou tamanho invalido.
 	
 	fila->f = (int *) malloc(sizeof(int) * tamanho);
 	if(fila->f == NULL) exit(2); // falha aloc.
