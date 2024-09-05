@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// fila de alocação sequencial
-// implementação circular
+// fila de alocaÃ§Ã£o sequencial
+// implementaÃ§Ã£o circular
 
 
 // indice -1 simboliza fila vazia.
@@ -16,7 +16,7 @@ typedef struct{
 void init(FilaSeq *fila, int tamanho); // inicia fila.
 void insere(FilaSeq *fila, int valor); // insere na fila. (enqueue)
 int libera(FilaSeq *fila);             // remove da fila (dequeue)
-void overflow(FilaSeq *fila);          // realoca espaço e copia a fila respeitando ordem.
+void overflow(FilaSeq *fila);          // realoca espaÃ§o e copia a fila respeitando ordem.
 void exibeFila(FilaSeq *fila);
 
 int main(void){
@@ -25,6 +25,7 @@ int main(void){
 	
 	init(&fila, 5);
 	
+	// testes
 	insere(&fila, 5);
 	insere(&fila, 4);
 	insere(&fila, 3);
@@ -68,7 +69,7 @@ void insere(FilaSeq *fila, int valor){
 			overflow(fila);
 			fila->f[fila->fim++] = valor;
 		}
-		else{ // há espaço na fila. insere...
+		else{ // hÃ¡ espaÃ§o na fila. insere...
 			fila->f[fila->fim] = valor;
 			fila->fim = (fila->fim+1)%fila->tam;
 		}
@@ -77,8 +78,9 @@ void insere(FilaSeq *fila, int valor){
 
 void overflow(FilaSeq *fila){
 	int *v = fila->f; // vetor atual.
-	                     // nova alocação c/ tamanho maior.
+	                     // nova alocaÃ§Ã£o c/ tamanho maior.
 	int *vnovo = (int *) malloc(sizeof(int) * fila->tam*2);
+	if(vnovo == NULL) exit(3); // falha alocacao.
 	
 	// copia fila atual na ordem circular.
 	int j = 0;
@@ -87,7 +89,7 @@ void overflow(FilaSeq *fila){
 	}
 		
 	free(v);           // libera bloco menor.
-	fila->f = vnovo;   // atualiza nova alocação.
+	fila->f = vnovo;   // atualiza nova alocaÃ§Ã£o.
 	fila->tam *= 2;    // atualiza novo tamanho.
 	fila->inicio = 0;  // atualiza inicio
 	fila->fim = j;     // atualiza novo fim.
@@ -95,7 +97,7 @@ void overflow(FilaSeq *fila){
 
 int libera(FilaSeq *fila){
 	if(fila->inicio == -1)
-		exit(3); // underflow
+		exit(4); // underflow
 	
 	int registro = fila->f[fila->inicio];
 	
@@ -111,7 +113,7 @@ void exibeFila(FilaSeq *fila){
 		printf("Fila vazia.\n");
 		return;
 	}
-	int i = fila->inicio;  // caso onde a fila está cheia.
+	int i = fila->inicio;  // caso onde a fila estÃ¡ cheia.
 	printf("Fila atual: ");
 	do{
 		printf("%d ", fila->f[i]);
