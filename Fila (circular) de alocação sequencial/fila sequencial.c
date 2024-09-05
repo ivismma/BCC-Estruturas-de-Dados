@@ -35,8 +35,8 @@ int main(void){
 	insere(&fila, 1);
 	printf("inseriu -> 1\n");
 	exibeFila(&fila);
-	insere(&fila, 3);
-	printf("inseriu -> 1\n");
+	insere(&fila, 7);
+	printf("inseriu -> 7\n");
 	insere(&fila, 10);
 	printf("inseriu -> 10\n");
 	exibeFila(&fila);
