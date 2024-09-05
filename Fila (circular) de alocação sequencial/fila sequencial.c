@@ -113,8 +113,9 @@ void exibeFila(FilaSeq *fila){
 		printf("Fila vazia.\n");
 		return;
 	}
-	int i = fila->inicio;  // caso onde a fila está cheia.
+	int i = fila->inicio;
 	printf("Fila atual: ");
+	// 1a iteração obrigatória senão uma fila cheia nao é exibida pq inicio = fim
 	do{
 		printf("%d ", fila->f[i]);
 		i = (i+1)%fila->tam;
