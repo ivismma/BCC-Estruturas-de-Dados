@@ -1,0 +1,56 @@
+Definição de árvores:
+
+Uma árvore é vazia
+OU
+é um vértice chamado RAIZ e um ou mais
+conjuntos que também são árvores, que
+são chamadas de sub-árvores de raiz.
+
+------------------------------------------
+
+Árvore binária:
+
+É vazia
+OU
+é uma raiz com 2 conjuntos (esquerda e
+direita) que também são árvores binárias.
+
+Cada raiz tem entre 0 e m sub-árvores.
+
+Nó = raiz de árvore
+OU
+sub-árvore da árvore.
+
+Uma sub-árvore de T é qualquer sub-árv
+da raiz de T ou sub-árvore das sub-árvs de T.
+
+Os elementos (raízes) de T ou de sub-árvores
+de T são chamados nós ou vértices.
+
+Um nó é FOLHA se suas sub-árvores são vazias
+(não tem filhos).
+
+Se r é raiz de T e s pertence a T:
+-> r é ancestral de s
+-> s é descendente de r
+Se r != s -> ancestral/descendente próprio.
+
+Caminhos: um caminho é SIMPLES se ñ repete vértices.
+
+------------------------------------------
+
+Distância e comprimento :
+
+O comprimento de um caminho a1, ..., na é k-1
+(é o nº de arestas <-> nº de relações pai/filho).
+
+A distância é o comprimento de menor caminho.
+
+
+A altura de um nó é o nº de nós no maior caminho
+SIMPLES deste nó até um de seus descendentes.
+
+A altura de uma árvore é a altura de sua raiz.
+
+O nível de um nó U em uma árvore T de raiz r é
+o nº de nós no menor caminho de r à U.
