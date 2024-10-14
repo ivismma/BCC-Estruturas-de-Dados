@@ -72,9 +72,10 @@ int main(int argc, char *argv[]){
 	else{ // ausencia da flag -n: inserir do teclado valores do vetor até ENTER.
 		init(&lista, 30); // pre-alocacao de 30 valores.
 		int buffer;
-		while(scanf("%d", &buffer) != EOF)
+		while(scanf("%d", &buffer) == 1){
 			insere(&lista, buffer);
-		
+		}
+		printf("asdas\n");
 		// >>> usa ponteiro v para a lista <<<
 		v = lista.l;
 		n = lista.nelem;
@@ -217,13 +218,17 @@ void init(ListaSeq *lista, int tamanho){
 
 void insere(ListaSeq *lista, int valor){
 	if(lista->nelem == lista->tam){
-		int *aux = realloc(lista->l, (lista->tam *= 2));
+		int *aux = (int*) realloc(lista->l, lista->tam*2*sizeof(int));
 		if(aux == NULL){
 			printf("falha na realocacao.\n");
 			exit(5);
 		}
-		else lista->l = aux;
+		else {
+			lista->l = aux;
+			lista->tam *= 2;
+		}
 	}
 	lista->l[lista->nelem++] = valor;
+	printf("inseriu\n");
 }
 
