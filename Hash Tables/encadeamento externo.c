@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define R 6 // R-1 encadeamentos externos -> [0, 1, 2, 3, 4, 5]
+#define R 6 // indice k nos encadeamentos externos -> [0, R-1]
             // (vetores de listas encadeadas)
 
 typedef int TIPOCHAVE;
