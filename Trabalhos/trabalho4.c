@@ -2,11 +2,11 @@
 	Trabalho 4 - Estrutura de Dados
 	Implementar uma tabela hash com as seguintes propriedades:
 
-	Encademento interno. Sem área de colisão e sem coalescência. 
-	Inserções. Remoções. Exibições.
+	Encademento interno. Sem Ã¡rea de colisÃ£o e sem coalescÃªncia. 
+	InserÃ§Ãµes. RemoÃ§Ãµes. ExibiÃ§Ãµes.
 */
 
-// entrada até EOF:
+// entrada atÃ© EOF:
 // i (valor) - inserir | r (valor) - remover | l - exibir
 
 /* 
@@ -20,15 +20,13 @@ i 13
 r 3
 i 31
 l
-saída esperada:
+saÃ­da esperada:
 31
 11
 42
 13
 21
 */
-
-// Obs.: Está sem tratamento p/ overflow e repetição de chaves.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,10 +44,10 @@ typedef struct{
 } hashTable;
 
 void init_table(hashTable *t, int tam); // init na estrutura de dados
-int busca(hashTable *t, int chave); // busca indice da chave, retorna -1 se não tem.
-int fhash(int chave, int mod); // aplica função hash.
+int busca(hashTable *t, int chave); // busca indice da chave, retorna -1 se nÃ£o tem.
+int fhash(int chave, int mod); // aplica funÃ§Ã£o hash.
 int proxDisponivel(hashTable *t, int chave, int indAtual); // retorna indice do proximo indice disponivel
-void atualizaPonteiro(hashTable *t, int movido, int novaPos); // atualiza ponteiro quando uma chave é movida de lugar
+void atualizaPonteiro(hashTable *t, int movido, int novaPos); // atualiza ponteiro quando uma chave Ã© movida de lugar
 void insere(hashTable *t, int chave); // insere na hash table
 void apaga(hashTable *t, int chave); // apaga da hash table
 void exibe(hashTable *t); // exibe
@@ -109,11 +107,11 @@ int fhash(int chave, int mod){
 
 int proxDisponivel(hashTable *t, int chave, int indAtual){
 	int cont = 0;
-	for(int i = indAtual+1; cont < t->tam-1; i = (i+1)%t->tam){
+	for(int i = indAtual+1; cont < t->tam-1; i = (i+1)%t->tam, ++cont){
 		if(t->v[i].ocupado == false)
 			return i;
 	}
-	return -1; // não tem lugar disponivel, overflow...
+	return -1; // nÃ£o tem lugar disponivel, overflow...
 }
 
 void insere(hashTable *t, int chave){
@@ -141,13 +139,14 @@ void insere(hashTable *t, int chave){
 			t->v[proxLugar].chave = chave;
 			
 			int atual = t->v[indice].prox;
-			if(atual == -1) // a chave já é a última do encadeamento interno. aponta direto
+			if(atual == -1) // a chave jÃ¡ Ã© a Ãºltima do encadeamento interno. aponta direto
 				t->v[indice].prox = proxLugar;
 			else{                
-				while(t->v[atual].prox != -1) // percorre até a ultima chave do hash para atualizar o próximo
+				while(t->v[atual].prox != -1){ // percorre atÃ© a ultima chave do hash para atualizar o prÃ³ximo
 					atual = t->v[atual].prox;
+				}
 		 	
-				t->v[atual].prox = proxLugar; // atualiza o último do enc. interno desse hash para a nova inserida
+				t->v[atual].prox = proxLugar; // atualiza o Ãºltimo do enc. interno desse hash para a nova inserida
 			}
 		}
 	}
@@ -155,22 +154,21 @@ void insere(hashTable *t, int chave){
 
 int busca(hashTable *t, int chave){
 	int hash = fhash(chave, t->tam);
-	if(t->v[hash].chave == chave)
-		return hash; // achou, tá na posição do próprio hash.
-		
-	// tem que procurar..
-	for(int i = hash+1; i != hash; i = (i+1)%t->tam){
-		if(t->v[i].ocupado && t->v[i].chave == chave)
-			return i;
+	int atual = hash;
+	while(t->v[atual].prox != -1){ // percorre encadeamento interno buscando...
+		if(t->v[atual].chave == chave)
+			return atual;
+		atual = t->v[atual].prox;
 	}
-	return -1;
+	// verifica se Ã© o Ãºltimo do encadeamento, se nÃ£o for, entÃ£o a chave nÃ£o estÃ¡ na hash table.
+	return (t->v[atual].chave == chave)? atual : -1; 
 }
 
-// se alguém apontava para uma chave e ela foi movida de lugar, atualiza ponteiro p/ seu novo indice
-// essa função percorre encadeamento do hash e procura quem apontava pro cara q vai ser movido p/ atualizar.
+// se alguÃ©m apontava para uma chave e ela foi movida de lugar, atualiza ponteiro p/ seu novo indice
+// essa funÃ§Ã£o percorre encadeamento do hash e procura quem apontava pro cara q vai ser movido p/ atualizar.
 void atualizaPonteiro(hashTable *t, int movido, int novaPos){
 	int i = fhash(t->v[movido].chave, t->tam);
-	// percorre o encadeamento e atualiza nova posição da chave movida de lugar.
+	// percorre o encadeamento e atualiza nova posiÃ§Ã£o da chave movida de lugar.
 	while(t->v[i].prox != -1){
 		if(t->v[i].prox == movido){
 			t->v[i].prox = novaPos;
@@ -182,12 +180,12 @@ void atualizaPonteiro(hashTable *t, int movido, int novaPos){
 
 void apaga(hashTable *t, int chave){
 	int remover = busca(t, chave); // indice do que vai apagar
-	if(remover == -1) return; // não está na hashtable.
+	if(remover == -1) return; // nÃ£o estÃ¡ na hashtable.
 	
 	int hash = fhash(chave, t->tam);
-	if(remover == hash){ // significa que ele está no próprio lugar do seu hash.
+	if(remover == hash){ // significa que ele estÃ¡ no prÃ³prio lugar do seu hash.
 		int prox = t->v[remover].prox;
-		if(prox != -1){ // ele aponta para alguém
+		if(prox != -1){ // ele aponta para alguÃ©m
 			t->v[remover] = t->v[prox];
 			t->v[prox].ocupado = false;
 			t->v[prox].prox = -1;
@@ -198,10 +196,10 @@ void apaga(hashTable *t, int chave){
 		}
 	}
 	else if(fhash(t->v[remover].chave, t->tam) == hash){
-		// significa que esse cara provavelmente está entre os ponteiros, precisa "reamarrar":
-		// esse segundo caso irá cobrir qualquer remoção em que o removido esteja sendo apontado por alguém.
+		// significa que esse cara provavelmente estÃ¡ entre os ponteiros, precisa "reamarrar":
+		// esse segundo caso irÃ¡ cobrir qualquer remoÃ§Ã£o em que o removido esteja sendo apontado por alguÃ©m.
 		
-		int anterior = hash; // é o primeiro
+		int anterior = hash; // Ã© o primeiro
 		int atual = t->v[anterior].prox;
 		while(t->v[atual].chave != chave){
 			//printf("%d -> %d\n", t->v[anterior].chave, t->v[atual].chave);
